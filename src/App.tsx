@@ -7,7 +7,8 @@ import {
   FileText,
   Copy,
   CheckCircle2,
-  Lock
+  Lock,
+  Download
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -21,6 +22,18 @@ export default function App() {
     navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownload = (code: string) => {
+    const blob = new Blob([code], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'g1p_guardrail.v';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   const getSafeTokenValue = () => {
@@ -233,13 +246,22 @@ endmodule
                 <FileText className="w-4 h-4 text-slate-400" />
                 <span className="text-sm font-medium text-slate-300">g1p_guardrail.v</span>
               </div>
-              <button 
-                onClick={() => handleCopy(verilogCode)}
-                className="flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-white transition-colors px-2 py-1 rounded bg-white/5 hover:bg-white/10"
-              >
-                {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                {copied ? 'Copied!' : 'Copy Code'}
-              </button>
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={() => handleCopy(verilogCode)}
+                  className="flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-white transition-colors px-2 py-1 rounded bg-white/5 hover:bg-white/10"
+                >
+                  {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? 'Copied!' : 'Copy Code'}
+                </button>
+                <button 
+                  onClick={() => handleDownload(verilogCode)}
+                  className="flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-white transition-colors px-2 py-1 rounded bg-white/5 hover:bg-white/10"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  Download
+                </button>
+              </div>
             </div>
             <div className="p-4 overflow-auto flex-1">
               <pre className="text-sm font-mono text-slate-300 leading-relaxed">
