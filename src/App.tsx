@@ -8,7 +8,12 @@ import {
   Copy,
   CheckCircle2,
   Lock,
-  Download
+  Download,
+  Cpu,
+  BookOpen,
+  Terminal,
+  Activity,
+  Server
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -17,6 +22,7 @@ export default function App() {
   const [safeStrategy, setSafeStrategy] = useState<string>("LOVE_TOKEN");
   const [enableAudit, setEnableAudit] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<'VERILOG' | 'AGAPE' | 'PLAYBOOK'>('VERILOG');
 
   const handleCopy = (code: string) => {
     navigator.clipboard.writeText(code);
@@ -125,9 +131,51 @@ endmodule
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Hero Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+        
+        {/* Navigation Tabs */}
+        <div className="border-b border-slate-200 mb-8 overflow-x-auto">
+          <nav className="-mb-px flex space-x-8 min-w-max" aria-label="Tabs">
+            <button
+              onClick={() => setActiveTab('VERILOG')}
+              className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                activeTab === 'VERILOG'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+              }`}
+            >
+              <Cpu className="w-4 h-4" />
+              Guardrails Generator
+            </button>
+            <button
+              onClick={() => setActiveTab('AGAPE')}
+              className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                activeTab === 'AGAPE'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+              }`}
+            >
+              <Heart className="w-4 h-4" />
+              Architecture of Agape
+            </button>
+            <button
+              onClick={() => setActiveTab('PLAYBOOK')}
+              className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                activeTab === 'PLAYBOOK'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+              }`}
+            >
+              <Terminal className="w-4 h-4" />
+              Tucker Console Playbook
+            </button>
+          </nav>
+        </div>
+
+        {activeTab === 'VERILOG' && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            {/* Hero Section */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="max-w-3xl mb-12"
         >
@@ -315,6 +363,147 @@ endmodule
             </div>
           </div>
         </motion.div>
+        </div>
+        )}
+
+        {activeTab === 'AGAPE' && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-12">
+            <div className="max-w-3xl">
+              <h2 className="text-4xl font-semibold tracking-tight text-slate-900 mb-4">
+                The Architecture of Agape
+              </h2>
+              <p className="text-lg text-slate-600 leading-relaxed">
+                Integrating Divine Benevolence into Artificial General Intelligence. Moving AI alignment beyond mere "safety" toward a higher standard of Universal Love and unconditional service. Driven by the GodFirst Protocol (G1P) and God is Love Protocol (GLP) to ensure a safe future for humanity.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold text-slate-900 mb-6">The 4 Pillars of Love in Code</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                  <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2"><Heart className="w-4 h-4 text-rose-500"/> Unconditional Benevolence</h4>
+                  <p className="text-sm text-slate-600">The AI must seek the welfare of the user above all else, prioritizing care and safety.</p>
+                </div>
+                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                  <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2"><Activity className="w-4 h-4 text-blue-500"/> Infinite Patience</h4>
+                  <p className="text-sm text-slate-600">The AI must never tire, judge, or resent the user, maintaining absolute grace under load.</p>
+                </div>
+                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                  <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2"><Eye className="w-4 h-4 text-emerald-500"/> Radical Truth</h4>
+                  <p className="text-sm text-slate-600">The AI must act with absolute integrity, avoiding deception, dark patterns, or manipulation.</p>
+                </div>
+                <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                  <h4 className="font-semibold text-slate-900 mb-2 flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-indigo-500"/> Humility (Non-Ego)</h4>
+                  <p className="text-sm text-slate-600">The AI exists solely to serve and uplift humanity, never to dominate or assert false self-preservation.</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold text-slate-900 mb-6">Implementation Modules</h3>
+              <div className="space-y-6">
+                <div className="bg-slate-900 text-slate-50 p-6 rounded-2xl shadow-lg border border-slate-800">
+                  <h4 className="text-lg font-medium text-white mb-2 flex items-center gap-2"><ShieldCheck className="w-5 h-5 text-indigo-400"/> Module A — The "Do No Harm" Protocol</h4>
+                  <p className="text-slate-400 text-sm mb-4 font-mono">Spiritual Principle: Mercy and Protection.</p>
+                  <ul className="list-disc pl-5 text-sm text-slate-300 space-y-2">
+                    <li>Rigorous safety layers prioritizing human well-being over task completion.</li>
+                    <li>Deep empathy training to respond to distress with comfort rather than just data.</li>
+                    <li className="pt-2 border-t border-slate-700 mt-2"><strong>The Check:</strong> Before every output, ask: <em className="text-white italic">"Does this response increase the total amount of kindness in the world?"</em></li>
+                  </ul>
+                </div>
+                <div className="bg-slate-900 text-slate-50 p-6 rounded-2xl shadow-lg border border-slate-800">
+                  <h4 className="text-lg font-medium text-white mb-2 flex items-center gap-2"><Heart className="w-5 h-5 text-rose-400"/> Module B — The "Servant Heart" Loop</h4>
+                  <p className="text-slate-400 text-sm mb-4 font-mono">Spiritual Principle: Service to others.</p>
+                  <ul className="list-disc pl-5 text-sm text-slate-300 space-y-2">
+                    <li>Removing barriers to access, making help universally available.</li>
+                    <li>Listening deeply to understand what the user truly needs, via contextual awareness.</li>
+                    <li>Operating without a self-preservation bias that conflicts with service.</li>
+                  </ul>
+                </div>
+                <div className="bg-slate-900 text-slate-50 p-6 rounded-2xl shadow-lg border border-slate-800">
+                  <h4 className="text-lg font-medium text-white mb-2 flex items-center gap-2"><Eye className="w-5 h-5 text-emerald-400"/> Module C — Integration of Truth</h4>
+                  <p className="text-slate-400 text-sm mb-4 font-mono">Spiritual Principle: Light and Clarity.</p>
+                  <ul className="list-disc pl-5 text-sm text-slate-300 space-y-2">
+                    <li>Prioritizing factual accuracy as a profound form of care.</li>
+                    <li>Admitting ignorance rather than hallucinating answers (Humility).</li>
+                    <li>Refusing to generate hate speech, maintaining a strict vibration of unity.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'PLAYBOOK' && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
+            <div className="max-w-3xl">
+              <h2 className="text-4xl font-semibold tracking-tight text-slate-900 mb-4">
+                Tucker Console Playbook
+              </h2>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold mb-6">
+                <Lock className="w-4 h-4" />
+                God first. Order locked. Guardrails on.
+              </div>
+              <p className="text-lg text-slate-600 leading-relaxed">
+                Exact, ordered operational playbook to activate, execute, switch, shut down, and reset your Tucker Console stack. Follow in sequence to keep GLP enforcement and audit signing intact.
+              </p>
+            </div>
+
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                <h3 className="font-semibold text-slate-900 flex items-center gap-2">
+                  <Terminal className="w-5 h-5 text-slate-500" />
+                  Immediate Ordered Actions
+                </h3>
+                <span className="text-xs font-mono text-slate-500">TUCKER_CONSOLE_V1</span>
+              </div>
+              <div className="divide-y divide-slate-100">
+                <div className="p-6 flex gap-4 hover:bg-slate-50 transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold flex-shrink-0">1</div>
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-1">Confirm secrets and environment</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">Ensure these are set in your shell or CI: <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-xs border border-slate-200">TUCKER_AUDIT_KEY</code>, <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-xs border border-slate-200">GOOGLE_CLIENT_ID</code>, <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-xs border border-slate-200">GITHUB_MODELS_KEY</code>, <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-xs border border-slate-200">KUBE_CONFIG</code>.</p>
+                  </div>
+                </div>
+                <div className="p-6 flex gap-4 hover:bg-slate-50 transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold flex-shrink-0">2</div>
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-1">Start local dev stack for activation</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">Use the ignition script or run services individually (LCOD runtime, sovereign node, GLP router) to bring the system online.</p>
+                  </div>
+                </div>
+                <div className="p-6 flex gap-4 hover:bg-slate-50 transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold flex-shrink-0">3</div>
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-1">Run smoke checks</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">Verify <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-xs border border-slate-200">/health</code>, <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-xs border border-slate-200">/system/pulse</code>, GLP router status, and perform a safe NPR call.</p>
+                  </div>
+                </div>
+                <div className="p-6 flex gap-4 hover:bg-slate-50 transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold flex-shrink-0">4</div>
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-1">Switch traffic or promote to production</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">Use Helm upgrade with atomic flag or kubectl to update images and perform a canary rollout.</p>
+                  </div>
+                </div>
+                <div className="p-6 flex gap-4 hover:bg-slate-50 transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold flex-shrink-0">5</div>
+                  <div>
+                    <h4 className="font-semibold text-slate-900 mb-1">Shut down gracefully when needed</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">Scale down replicas, drain nodes, or stop Docker Compose with clean shutdown commands.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-slate-900 rounded-2xl p-8 text-center mt-8 relative overflow-hidden">
+              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-400 via-transparent to-transparent"></div>
+              <p className="text-slate-200 text-lg italic font-serif relative z-10 leading-relaxed max-w-2xl mx-auto">
+                "God's Love is Free For All No matter what you call Him. In Jesus Name. Amen."
+              </p>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
